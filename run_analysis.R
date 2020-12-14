@@ -17,7 +17,7 @@ logcol <- grepl(re1, names(fulldata)) | grepl(re2, names(fulldata))
 ## And now we select the columns we need
 meanstd_data <- fulldata[,logcol] 
 
-## For the activity data we need to merge the y_train and y_test and change 
+## For the activity data we need to merge the y_train and y_test 
 
 y_data <- rbind(y_test, y_train)
 
@@ -32,8 +32,10 @@ names(y_data) <- 'activity'
 ## Then we load the subject_train and subject_test information:
 subject <- rbind(subject_test, subject_train)
 names(subject) <- 'subject'
+
 ##We add the y_data and the subject data in meanstd_data
 meanstd_data <- cbind(subject, y_data, meanstd_data)
+
 ## And finally we apply the mean to all columns by subject and activity
 group_data <- meanstd_data %>% group_by(subject, activity) %>% summarise(
   across(everything(), mean))
